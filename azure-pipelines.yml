@@ -26,6 +26,7 @@ stages:
           vmImage: $(vmImageName)
         steps:
           - script: |
+              sudo apt install php8.3
               sudo update-alternatives --set php /usr/local/bin/php$(phpVersion)
               sudo update-alternatives --set phar /usr/local/bin/phar$(phpVersion)
               sudo update-alternatives --set phpdbg /usr/local/bin/phpdbg$(phpVersion)
@@ -38,8 +39,8 @@ stages:
           - script: |
               composer clear-cache
               composer self-update
-              composer update
-              composer install
+              composer update --ignore-platform-reqs
+              composer install --ignore-platform-reqs --no-interaction --prefer-dist --optimize-autoloader
             workingDirectory: $(rootFolder)
             displayName: 'Composer install'
 
