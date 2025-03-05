@@ -34,7 +34,10 @@ stages:
         workingDirectory: $(rootFolder)
         displayName: 'Use PHP version $(phpVersion)'
 
-      - script: composer install --no-interaction --prefer-dist
+      - script: | 
+          composer install --no-interaction --prefer-dist
+          npm install
+          npm run build
         workingDirectory: $(rootFolder)
         displayName: 'Composer install'
 
